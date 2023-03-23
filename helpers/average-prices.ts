@@ -1,13 +1,23 @@
+type TypeFileDataStockPrice = {
+  v: number;
+  vw: number;
+  o: number;
+  c: number;
+  highestPriceOfTheDay: number;
+  lowestPriceOfTheDay: number;
+  timestamp: number;
+  n: number;
+}[];
 
-function mergeAndGroupData(data) {
-  const groupedData = {};
+function mergeAndGroupData(data: TypeFileDataStockPrice) {
+  const groupedData: { [key: string]: { total: number; count: number } } = {};
 
   data.forEach((entry) => {
     const date = new Date(entry.timestamp);
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
-    const key = `${year}-${month}`;
+    const key: keyof typeof groupedData = `${year}-${month}`;
 
     if (!groupedData[key]) {
       groupedData[key] = {
@@ -16,7 +26,8 @@ function mergeAndGroupData(data) {
       };
     }
 
-    const averagePrice = (entry.highestPriceOfTheDay + entry.lowestPriceOfTheDay) / 2;
+    const averagePrice =
+      (entry.highestPriceOfTheDay + entry.lowestPriceOfTheDay) / 2;
     groupedData[key].total += averagePrice;
     groupedData[key].count++;
   });
@@ -24,7 +35,9 @@ function mergeAndGroupData(data) {
   return groupedData;
 }
 
-function calculateMonthlyAverages(groupedData) {
+function calculateMonthlyAverages(groupedData: {
+  [key: string]: { total: number; count: number };
+}) {
   const monthlyAverages = Object.entries(groupedData).map(([key, data]) => {
     const averagePrice = data.total / data.count;
 
@@ -37,7 +50,7 @@ function calculateMonthlyAverages(groupedData) {
   return monthlyAverages;
 }
 
- export function getMonthlyAverages(fileData) {
+export function getMonthlyAverages(fileData: TypeFileDataStockPrice) {
   const groupedData = mergeAndGroupData(fileData);
   const monthlyAverages = calculateMonthlyAverages(groupedData);
   return monthlyAverages;
