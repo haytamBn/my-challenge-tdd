@@ -1,4 +1,4 @@
-import { handler } from "../pages/api/average-prices";
+import  handler from "../pages/api/average-prices";
 import { getMonthlyAverages } from "../helpers/average-prices";
 import googleStockPrice from "../public/data/google-stock-price.json";
 import amazoneStockPrice from "../public/data/amazone-stock-price.json";
