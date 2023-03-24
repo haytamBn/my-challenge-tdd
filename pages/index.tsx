@@ -75,13 +75,15 @@ const Home: NextPage<HomeProps> = ({
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: {
+  req: { headers: { host: string } };
+}) {
   // Fetch data from external API
 
   let baseUrl: string | undefined = process.env.APP_API_URL;
 
   if (process.env.NODE_ENV === "production") {
-    baseUrl = `https://${window.location.hostname}${process.env.APP_API_PATH}`;
+    baseUrl = `https://${context.req.headers.host}${process.env.APP_API_PATH}`;
   }
 
   const resBestInvestmentErwan = await fetch(`${baseUrl}/erwan-investment`);
