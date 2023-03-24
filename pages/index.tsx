@@ -103,8 +103,7 @@ export async function getServerSideProps() {
     (amazonStockPrices: { month: string; averagePrice: number }) => {
       googleStockPrices.forEach(
         (googleStockPrices: { month: string; averagePrice: number }) => {
-          const obj: { month: string; google: number; amazone: number } = {};
-
+          const obj: any = {};
           if (amazonStockPrices.month === googleStockPrices.month) {
             obj.month = amazonStockPrices.month;
             obj.google = googleStockPrices.averagePrice;
