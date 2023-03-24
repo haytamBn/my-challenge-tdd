@@ -45,7 +45,9 @@ const SimpleTable: React.FC<SimpleTableProps> = ({
         <Tbody>
           {dataBestInvestmentErwan?.erwan?.transactions.map((el, index) => (
             <Tr key={index}>
-              <Td>{el.date}</Td>
+              <Td>{`${new Date(el?.date).getDate()}/${
+                new Date(el?.date).getMonth() + 1
+              }/${new Date(el?.date).getFullYear()}`}</Td>
               <Td>{el.type}</Td>
               <Td isNumeric>{el.google} €</Td>
               <Td isNumeric>{el.amazon} €</Td>
