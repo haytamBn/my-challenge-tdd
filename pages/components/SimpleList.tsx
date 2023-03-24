@@ -15,7 +15,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
   return (
     <List spacing={3} {...props}>
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={():  React.ReactElement=> <CheckIcon />} mr="5px" />
         Date Acheter Aymen :{" "}
         {`${new Date(dataBestInvestment?.aymen?.buyDate).getDate()}/${
           new Date(dataBestInvestment?.aymen?.buyDate).getMonth() + 1
@@ -23,7 +23,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
       </ListItem>
 
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={(): React.ReactElement => <CheckIcon />} mr="5px" />
         Date Vendre Aymen :{" "}
         {`${new Date(dataBestInvestment?.aymen?.sellDate).getDate()}/${
           new Date(dataBestInvestment?.aymen?.sellDate).getMonth() + 1
@@ -31,14 +31,14 @@ const SimpleList: React.FC<SimpleListProps> = ({
       </ListItem>
 
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={():  React.ReactElement=> <CheckIcon />} mr="5px" />
         Aymen gain : {Number(dataBestInvestment?.aymen?.profit).toFixed(2)} € 
       </ListItem>
 
       <Divider />
 
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={(): React.ReactElement => <CheckIcon />} mr="5px" />
         Date Acheter Anouar :{" "}
         {`${new Date(dataBestInvestment?.anouar?.buyDate).getDate()}/${
           new Date(dataBestInvestment?.anouar?.buyDate).getMonth() + 1
@@ -46,7 +46,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
       </ListItem>
 
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={(): React.ReactElement => <CheckIcon />} mr="5px" />
         Date Vendre Anouar :{" "}
         {`${new Date(dataBestInvestment?.anouar?.sellDate).getDate()}/${
           new Date(dataBestInvestment?.anouar?.sellDate).getMonth() + 1
@@ -54,7 +54,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
       </ListItem>
 
       <ListItem>
-        <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
+        <ListIcon as={(): React.ReactElement => <CheckIcon />} mr="5px" />
         Anouar gain :{" "}
         {Number(dataBestInvestment?.anouar?.profit).toFixed(2)} € 
       </ListItem>
