@@ -1,16 +1,10 @@
 import type { NextPage } from "next";
-import {
-  Flex,
-  Heading,
-  List,
-  ListItem,
-  ListIcon,
-  Divider,
-} from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
+import { Flex, Heading } from "@chakra-ui/react";
+
 import SimpleCard from "./components/SimpleCard";
 import SimpleChart from "./components/SimpleChart";
 import SimpleList from "./components/SimpleList";
+import SimpleTable from "./components/SimpleTable";
 
 interface HomeProps {
   averagePrices: { month: string; google: number; amazone: number }[];
@@ -18,16 +12,38 @@ interface HomeProps {
     aymen: { buyDate: number; sellDate: number; profit: number };
     anouar: { buyDate: number; sellDate: number; profit: number };
   };
+  dataBestInvestmentErwan: {
+    erwan: {
+      profit: number;
+      transactions: {
+        amazon: number;
+        date: number;
+        google: number;
+        type: "buy" | "sell";
+      }[];
+    };
+    timeTaken: number;
+  };
 }
 
-const Home: NextPage<HomeProps> = ({ averagePrices, dataBestInvestment }) => {
- 
+const Home: NextPage<HomeProps> = ({
+  averagePrices,
+  dataBestInvestment,
+  dataBestInvestmentErwan,
+}) => {
+  console.log(dataBestInvestmentErwan);
   return (
-    <Flex flexDirection={"column"} alignItems={"center"} height={"100vh"}>
+    <Flex
+      flexDirection={"column"}
+      alignItems={"center"}
+      height={"100%"}
+      overflow={"auto"}
+      // gap="20px"
+    >
       <SimpleCard
         margin="1rem"
         w="50%"
-        h="800px"
+        h="700px"
         flexDirection="column"
         gap="10px"
         p="20px"
@@ -40,6 +56,21 @@ const Home: NextPage<HomeProps> = ({ averagePrices, dataBestInvestment }) => {
 
         <SimpleList dataBestInvestment={dataBestInvestment} />
       </SimpleCard>
+
+      <SimpleCard
+        margin="1rem"
+        w="50%"
+        height="100%"
+        flexDirection="column"
+        gap="10px"
+        p="20px"
+      >
+        <Heading as="h4" size="lg" textAlign="center">
+          Meilleur moment pour acheter et pour vendre
+        </Heading>
+
+        <SimpleTable dataBestInvestmentErwan={dataBestInvestmentErwan} />
+      </SimpleCard>
     </Flex>
   );
 };
@@ -47,12 +78,19 @@ const Home: NextPage<HomeProps> = ({ averagePrices, dataBestInvestment }) => {
 export async function getServerSideProps() {
   // Fetch data from external API
 
-  const resBestInvestment = await fetch(
-    `http://localhost:3001/api/best-investment`
-  );
+  let baseUrl: string | undefined = process.env.APP_API_URL;
+
+  if (process.env.NODE_ENV === "production") {
+    baseUrl = `https://${window.location.hostname}${process.env.APP_API_PATH}`;
+  }
+
+  const resBestInvestmentErwan = await fetch(`${baseUrl}/erwan-investment`);
+  const dataBestInvestmentErwan = await resBestInvestmentErwan.json();
+
+  const resBestInvestment = await fetch(`${baseUrl}/best-investment`);
   const dataBestInvestment = await resBestInvestment.json();
 
-  const res = await fetch(`http://localhost:3001/api/average-prices`);
+  const res = await fetch(`${baseUrl}/average-prices`);
   const data = await res.json();
 
   // handle Data averagePrices
@@ -79,7 +117,9 @@ export async function getServerSideProps() {
   );
 
   // Pass data to the page via props
-  return { props: { averagePrices, dataBestInvestment } };
+  return {
+    props: { averagePrices, dataBestInvestment, dataBestInvestmentErwan },
+  };
 }
 
 export default Home;
