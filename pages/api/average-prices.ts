@@ -3,7 +3,6 @@ import googleStocksData from "../../public/data/google-stock-price.json";
 import amazonStocksData from "../../public/data/amazone-stock-price.json";
 import { getMonthlyAverages } from "../../helpers/average-prices";
 
-
 type Data =
   | {
       googleStockPrices: { month: string; averagePrice: number }[];
