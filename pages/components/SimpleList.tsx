@@ -32,7 +32,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
 
       <ListItem>
         <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
-        Aymen gain : {parseFloat(dataBestInvestment?.aymen?.profit).toFixed(2)} € 
+        Aymen gain : {Number(dataBestInvestment?.aymen?.profit).toFixed(2)} € 
       </ListItem>
 
       <Divider />
@@ -56,7 +56,7 @@ const SimpleList: React.FC<SimpleListProps> = ({
       <ListItem>
         <ListIcon as={(): React.ReactNode => <CheckIcon />} mr="5px" />
         Anouar gain :{" "}
-        {parseFloat(dataBestInvestment?.anouar?.profit).toFixed(2)} € 
+        {Number(dataBestInvestment?.anouar?.profit).toFixed(2)} € 
       </ListItem>
     </List>
   );
