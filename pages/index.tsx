@@ -78,8 +78,7 @@ const Home: NextPage<HomeProps> = ({
 export async function getServerSideProps(context: {
   req: { headers: { host: string } };
 }) {
-  // Fetch data from external API
-
+  // Fetch data from external APIxxxxwwwwx
   let baseUrl: string | undefined = process.env.APP_API_URL;
 
   if (process.env.NODE_ENV === "production") {
